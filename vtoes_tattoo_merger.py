@@ -273,6 +273,15 @@ if __name__ == "__main__":
                 extra_dest = os.path.join(import_folder, "base", "4k", "common", "body", "wa", "textures")
                 os.makedirs(extra_dest, exist_ok=True)
                 shutil.copy2(extra_src, os.path.join(extra_dest, os.path.basename(extra_src)))
+        
+            # for VTK metallic colors, include the body remap XBM
+        if model_choice == 2 and (color_name.startswith("metallic_") or color_name in ("chrome", "gold")):
+            extra_src  = os.path.join(script_dir, "v_body_rm.xbm")
+            if os.path.exists(extra_src):
+                extra_dest = os.path.join(import_folder, os.path.dirname(target_xbm_relative))
+                os.makedirs(extra_dest, exist_ok=True)
+                shutil.copy2(extra_src, os.path.join(extra_dest, os.path.basename(extra_src)))
+
 
         # 8) Pack the final archive and cleanup
         pack_and_finalize(color_name)
